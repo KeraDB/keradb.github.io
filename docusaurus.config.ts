@@ -4,11 +4,11 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
   title: 'KeraDB',
-  tagline: 'A lightweight, Nosqlite embedded database.',
+  tagline: 'A lightweight, Nosqlite embedded database with Vector search capabilities.',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: 'https://YOUR_GITHUB_USERNAME.github.io',
+  url: 'https://keradb.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/keradb/',
@@ -38,7 +38,7 @@ const config: Config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/YOUR_GITHUB_USERNAME/keradb/tree/main/docs/',
+            'https://github.com/keradb/keradb/tree/main/docs/',
         },
         blog: false,
         theme: {
@@ -65,7 +65,7 @@ const config: Config = {
           label: 'Documentation',
         },
         {
-          href: 'https://github.com/YOUR_GITHUB_USERNAME/keradb',
+          href: 'https://github.com/keradb/keradb',
           label: 'GitHub',
           position: 'right',
         },
@@ -73,7 +73,7 @@ const config: Config = {
     },
     footer: {
       style: 'dark',
-      copyright: `Built in London with ❤️<br/><span style="font-size: 0.75rem;">Copyright © ${new Date().getFullYear()} KeraDB</span>`,
+      copyright: `Built from London and Texas with ❤️<br/><span style="font-size: 0.75rem;">Copyright © ${new Date().getFullYear()} KeraDB</span>`,
     },
     prism: {
       theme: prismThemes.github,
