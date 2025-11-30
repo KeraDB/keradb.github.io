@@ -24,6 +24,7 @@ const sidebars: SidebarsConfig = {
       items: [
         'getting-started/nodejs',
         'getting-started/python',
+        'getting-started/rust',
       ],
       collapsed: false,
     },
