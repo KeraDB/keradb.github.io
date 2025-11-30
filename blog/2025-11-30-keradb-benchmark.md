@@ -94,7 +94,7 @@ These characteristics make KeraDB ideal for:
 - Edge/agent workflows  
 - AI pipelines and LLM tooling  
 - Apps working heavily with JSON documents  
-- Workloads needing predictable <100µs response times  
+- Workloads needing predictable sub-100µs response times  
 
 ---
 
