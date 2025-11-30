@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# Node.js Getting Started
+# Node.js SDK
 
 Learn how to install and use KeraDB in your Node.js applications.
 

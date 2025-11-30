@@ -20,7 +20,7 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: 'Getting Started w/ SDK',
+      label: 'Getting Started with SDK',
       items: [
         'getting-started/nodejs',
         'getting-started/python',

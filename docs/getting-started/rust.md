@@ -2,7 +2,7 @@
 sidebar_position: 3
 ---
 
-# Rust Getting Started
+# Rust SDK
 
 Learn how to install and use KeraDB in your Rust applications. KeraDB is written natively in Rust, providing the best performance and most complete feature set.
 

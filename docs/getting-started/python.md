@@ -2,7 +2,7 @@
 sidebar_position: 2
 ---
 
-# Python Getting Started
+# Python SDK
 
 Learn how to install and use KeraDB in your Python applications.
 
