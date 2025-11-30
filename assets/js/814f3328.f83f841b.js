@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkkeradb_docs=globalThis.webpackChunkkeradb_docs||[]).push([[472],{5513:e=>{e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Introducing KeraDB - A Lightweight Embedded Database with Vector Search","permalink":"/blog/introducing-keradb","unlisted":false,"date":"2025-11-30T00:00:00.000Z"}]}')}}]);

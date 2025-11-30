@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkkeradb_docs=globalThis.webpackChunkkeradb_docs||[]).push([[903],{1912:a=>{a.exports=JSON.parse('{"blogBasePath":"/blog","blogTitle":"KeraDB Blog","authorsListPath":"/blog/authors"}')}}]);
