@@ -4,6 +4,9 @@ sidebar_position: 6
 
 # Contributing
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 Thank you for your interest in contributing to KeraDB! This guide will help you get started.
 
 ## Ways to Contribute
@@ -49,7 +52,8 @@ git remote add upstream https://github.com/ORIGINAL_OWNER/keradb.git
 
 ### Development Setup
 
-#### Node.js
+<Tabs>
+  <TabItem value="nodejs" label="Node.js" default>
 
 ```bash
 # Install dependencies
@@ -65,7 +69,8 @@ npm run build
 npm run lint
 ```
 
-#### Python
+  </TabItem>
+  <TabItem value="python" label="Python">
 
 ```bash
 # Create a virtual environment
@@ -81,6 +86,9 @@ pytest
 # Run linter
 flake8 src tests
 ```
+
+  </TabItem>
+</Tabs>
 
 ## Development Workflow
 
@@ -113,7 +121,8 @@ Branch naming conventions:
 
 All new features and bug fixes should include tests:
 
-#### Node.js
+<Tabs>
+  <TabItem value="nodejs" label="Node.js" default>
 
 ```javascript
 // tests/collection.test.js
@@ -130,7 +139,8 @@ describe('Collection', () => {
 });
 ```
 
-#### Python
+  </TabItem>
+  <TabItem value="python" label="Python">
 
 ```python
 # tests/test_collection.py
@@ -143,6 +153,9 @@ def test_insert_document():
     assert result.inserted_id is not None
     db.close()
 ```
+
+  </TabItem>
+</Tabs>
 
 ### 4. Run Tests
 
@@ -194,7 +207,8 @@ git push origin feature/my-new-feature
 
 ## Code Style
 
-### Node.js
+<Tabs>
+  <TabItem value="nodejs" label="Node.js" default>
 
 - Follow the existing ESLint configuration
 - Use 2 spaces for indentation
@@ -215,7 +229,8 @@ async insertOne(document) {
 }
 ```
 
-### Python
+  </TabItem>
+  <TabItem value="python" label="Python">
 
 - Follow PEP 8 style guide
 - Use 4 spaces for indentation
@@ -239,6 +254,9 @@ def insert_one(self, document: Dict[str, Any]) -> InsertOneResult:
     # Implementation
 ```
 
+  </TabItem>
+</Tabs>
+
 ## Testing Guidelines
 
 - Write tests for all new features
@@ -249,8 +267,10 @@ def insert_one(self, document: Dict[str, Any]) -> InsertOneResult:
 
 ### Test Structure
 
+<Tabs>
+  <TabItem value="nodejs" label="Node.js" default>
+
 ```javascript
-// Node.js
 describe('Feature Name', () => {
   beforeEach(() => {
     // Setup
@@ -274,8 +294,10 @@ describe('Feature Name', () => {
 });
 ```
 
+  </TabItem>
+  <TabItem value="python" label="Python">
+
 ```python
-# Python
 class TestFeatureName:
     def setup_method(self):
         # Setup
@@ -297,6 +319,9 @@ class TestFeatureName:
         # Test
         pass
 ```
+
+  </TabItem>
+</Tabs>
 
 ## Documentation
 

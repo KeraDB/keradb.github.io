@@ -76,7 +76,7 @@ const config: Config = {
     },
     footer: {
       style: 'dark',
-      copyright: \`Built from London and Texas with ❤️<br/><span style="font-size: 0.75rem;">Copyright © \${new Date().getFullYear()} KeraDB</span>\`,
+      copyright: `Built in London & Texas with ❤️<br/><span style="font-size: 0.75rem;">Copyright © ${new Date().getFullYear()} KeraDB</span>`,
     },
     prism: {
       theme: prismThemes.github,

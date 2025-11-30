@@ -34,7 +34,7 @@ export default function Home(): JSX.Element {
   const {siteConfig} = useDocusaurusContext();
   return (
     <Layout
-      title={\`\${siteConfig.title} - MongoDB-compatible embedded database\`}
+      title={`${siteConfig.title} - MongoDB-compatible embedded database`}
       description="A lightweight, MongoDB-compatible embedded database for Node.js and Python">
       <HomepageHeader />
       <main>
