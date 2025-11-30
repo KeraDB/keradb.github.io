@@ -29,12 +29,9 @@ const sidebars: SidebarsConfig = {
       collapsed: false,
     },
     {
-      type: 'category',
+      type: 'doc',
+      id: 'core-concepts/index',
       label: 'Core Concepts',
-      items: [
-        'core-concepts/index',
-      ],
-      collapsed: false,
     },
     {
       type: 'doc',
