@@ -11,6 +11,8 @@ date: 2025-01-15
 This post summarizes the results of our **v0.1.0 benchmark comparison** between **KeraDB**, an embedded NoSQL + vector search database, and **SQLite**, the widely used embedded relational engine.  
 The goal is to highlight the strengths of each system and provide transparency on where KeraDB excels today—and where we plan to optimize next.
 
+<!-- truncate -->
+
 All results are taken from our Criterion.rs benchmark suite.
 
 ---
