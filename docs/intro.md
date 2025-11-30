@@ -240,6 +240,6 @@ KeraDB is perfect for applications that need a simple, embedded database without
 - [Node.js Getting Started Guide](/docs/getting-started/nodejs)
 - [Python Getting Started Guide](/docs/getting-started/python)
 - [Rust Getting Started Guide](/docs/getting-started/rust)
-- [Core Concepts](/docs/api-reference/core-concepts)
+- [Core Concepts](/docs/core-concepts)
 - [Examples](/docs/examples)
 - [Query Guide](/docs/query-guide)

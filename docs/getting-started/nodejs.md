@@ -216,6 +216,6 @@ try {
 
 ## Next Steps
 
-- [Core Concepts](/docs/api-reference/core-concepts) - Learn about databases, collections, and documents
+- [Core Concepts](/docs/core-concepts) - Learn about databases, collections, and documents
 - [Query Guide](/docs/query-guide) - Master MongoDB-compatible query operators
 - [Examples](/docs/examples) - See real-world examples

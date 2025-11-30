@@ -575,6 +575,6 @@ cargo run --example vector_search
 
 ## Next Steps
 
-- [Core Concepts](/docs/api-reference/core-concepts) - Understand KeraDB fundamentals
+- [Core Concepts](/docs/core-concepts) - Understand KeraDB fundamentals
 - [Examples](/docs/examples) - More usage examples
 - [Query Guide](/docs/query-guide) - Advanced querying techniques
