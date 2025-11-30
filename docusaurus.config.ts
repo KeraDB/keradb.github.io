@@ -8,17 +8,19 @@ const config: Config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: 'https://YOUR_GITHUB_USERNAME.github.io',
+  url: 'https://keradb.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/keradb/',
+  baseUrl: '/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'KeraDB', // Usually your GitHub org/user name.
-  projectName: 'keradb', // Usually your repo name.
+  organizationName: 'keradb', // Usually your GitHub org/user name.
+  projectName: 'keradb.github.io', // Usually your repo name.
+  deploymentBranch: 'gh-pages',
+  trailingSlash: false,
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
 
   // Even if you don't use internationalization, you can use this field to set
@@ -34,11 +36,12 @@ const config: Config = {
       'classic',
       {
         docs: {
+          routeBasePath: 'docs',
           sidebarPath: './sidebars.ts',
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/YOUR_GITHUB_USERNAME/keradb/tree/main/docs/',
+            'https://github.com/keradb/keradb.github.io/tree/main/docs/',
         },
         blog: false,
         theme: {
@@ -65,7 +68,7 @@ const config: Config = {
           label: 'Documentation',
         },
         {
-          href: 'https://github.com/YOUR_GITHUB_USERNAME/keradb',
+          href: 'https://github.com/keradb/keradb.github.io',
           label: 'GitHub',
           position: 'right',
         },
