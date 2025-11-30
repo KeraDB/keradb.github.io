@@ -30,11 +30,6 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'doc',
-      id: 'core-concepts/index',
-      label: 'Core Concepts',
-    },
-    {
-      type: 'doc',
       id: 'query-guide',
       label: 'Query Guide',
     },

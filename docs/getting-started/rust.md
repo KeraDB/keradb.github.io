@@ -16,14 +16,6 @@ keradb = "0.1"
 serde_json = "1.0"
 ```
 
-For development from source:
-
-```toml
-[dependencies]
-keradb = { path = "path/to/keradb" }
-serde_json = "1.0"
-```
-
 ## Requirements
 
 - Rust 1.70 or higher
@@ -31,10 +23,36 @@ serde_json = "1.0"
 
 ## Quick Start
 
+```rust
+use keradb::Database;
+use serde_json::json;
+
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    // Create a database
+    let db = Database::create("mydata.ndb")?;
+    
+    // Insert a document
+    let id = db.insert("users", json!({
+        "name": "Alice",
+        "email": "alice@example.com"
+    }))?;
+    
+    // Find the document
+    let user = db.find_by_id("users", &id)?;
+    println!("Found: {:?}", user);
+    
+    Ok(())
+}
+```
+
+## Database
+
+The database is the top-level container for your data. Each database is stored in a single file.
+
 ### Creating a Database
 
 ```rust
-use keradb::Database;
+use keradb::{Database, Config};
 use serde_json::json;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -44,11 +62,69 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Or open an existing database
     // let db = Database::open("mydata.ndb")?;
     
+    // With custom configuration
+    let config = Config {
+        page_size: 8192,      // Page size in bytes
+        cache_size: 1000,     // Number of pages to cache
+        ..Default::default()
+    };
+    let db = Database::create_with_config("mydata.ndb", config)?;
+    
     Ok(())
 }
 ```
 
-### Inserting Documents
+### Database Methods
+
+| Method | Description |
+|--------|-------------|
+| `Database::create(path)` | Create a new database file |
+| `Database::open(path)` | Open an existing database |
+| `insert(collection, data)` | Insert a document |
+| `find_by_id(collection, id)` | Find a document by ID |
+| `find_all(collection, limit, skip)` | Find all documents |
+| `update(collection, id, data)` | Update a document |
+| `delete(collection, id)` | Delete a document |
+| `count(collection)` | Count documents |
+| `list_collections()` | List all collections |
+| `sync()` | Flush changes to disk |
+
+## Collections
+
+Collections are groups of related documents, analogous to tables in relational databases.
+
+### Working with Collections
+
+```rust
+use keradb::Database;
+use serde_json::json;
+
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let db = Database::create("mydata.ndb")?;
+    
+    // Insert documents into collections (collections are created automatically)
+    db.insert("users", json!({"name": "Alice"}))?;
+    db.insert("users", json!({"name": "Bob"}))?;
+    db.insert("posts", json!({"title": "Hello World"}))?;
+    
+    // Count documents in a collection
+    let user_count = db.count("users");
+    println!("Users: {}", user_count);
+    
+    // List all collections with their document counts
+    let collections = db.list_collections();
+    for (name, count) in collections {
+        println!("Collection '{}': {} documents", name, count);
+    }
+    
+    // Sync to disk (flush pending writes)
+    db.sync()?;
+    
+    Ok(())
+}
+```
+
+### Insert Operations
 
 ```rust
 use keradb::Database;
@@ -71,7 +147,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 }
 ```
 
-### Finding Documents
+### Query Operations
 
 ```rust
 use keradb::Database;
@@ -80,7 +156,6 @@ use serde_json::json;
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let db = Database::create("mydata.ndb")?;
     
-    // Insert a document first
     let id = db.insert("users", json!({
         "name": "Alice",
         "email": "alice@example.com"
@@ -102,7 +177,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 }
 ```
 
-### Updating Documents
+### Update Operations
 
 ```rust
 use keradb::Database;
@@ -129,7 +204,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 }
 ```
 
-### Deleting Documents
+### Delete Operations
 
 ```rust
 use keradb::Database;
@@ -148,7 +223,13 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 }
 ```
 
-### Collection Operations
+## Documents
+
+Documents are JSON-like objects that store your data. Each document is stored in a collection.
+
+### Document Structure
+
+Documents are flexible and schema-free:
 
 ```rust
 use keradb::Database;
@@ -157,47 +238,96 @@ use serde_json::json;
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let db = Database::create("mydata.ndb")?;
     
-    // Insert some documents
-    db.insert("users", json!({"name": "Alice"}))?;
-    db.insert("users", json!({"name": "Bob"}))?;
-    db.insert("posts", json!({"title": "Hello World"}))?;
+    let user = json!({
+        "name": "Alice Johnson",
+        "email": "alice@example.com",
+        "age": 28,
+        "address": {
+            "street": "123 Main St",
+            "city": "San Francisco",
+            "country": "USA"
+        },
+        "tags": ["developer", "rust", "python"],
+        "metadata": {
+            "login_count": 42
+        }
+    });
     
-    // Count documents in a collection
-    let user_count = db.count("users");
-    println!("Users: {}", user_count);
-    
-    // List all collections with their document counts
-    let collections = db.list_collections();
-    for (name, count) in collections {
-        println!("Collection '{}': {} documents", name, count);
-    }
-    
-    // Sync to disk (flush pending writes)
-    db.sync()?;
+    db.insert("users", user)?;
     
     Ok(())
 }
 ```
 
-### Custom Configuration
+### Nested Documents
+
+Documents can contain nested objects and arrays:
 
 ```rust
-use keradb::{Database, Config};
+use keradb::Database;
+use serde_json::json;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let config = Config {
-        page_size: 8192,      // Page size in bytes
-        cache_size: 1000,     // Number of pages to cache
-        ..Default::default()
-    };
+    let db = Database::create("mydata.ndb")?;
     
-    let db = Database::create_with_config("mydata.ndb", config)?;
+    db.insert("posts", json!({
+        "title": "Getting Started with KeraDB",
+        "author": {
+            "name": "Alice Johnson",
+            "email": "alice@example.com"
+        },
+        "tags": ["database", "tutorial", "rust"],
+        "comments": [
+            {
+                "user": "Bob",
+                "text": "Great article!"
+            },
+            {
+                "user": "Carol",
+                "text": "Very helpful"
+            }
+        ]
+    }))?;
     
     Ok(())
 }
 ```
 
-### Error Handling
+## Data Types
+
+KeraDB supports standard JSON data types through `serde_json`:
+
+| Type | Description | Example |
+|------|-------------|---------|
+| String | Text data | `json!("Hello World")` |
+| Number | Integers and floats | `json!(42)`, `json!(3.14)` |
+| Boolean | true/false | `json!(true)` |
+| Object | Nested documents | `json!({"key": "value"})` |
+| Array | Lists of values | `json!([1, 2, 3])` |
+| Null | Null value | `json!(null)` |
+
+```rust
+use keradb::Database;
+use serde_json::json;
+
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let db = Database::create("mydata.ndb")?;
+    
+    db.insert("examples", json!({
+        "string": "Hello World",
+        "number": 42,
+        "float": 3.14,
+        "boolean": true,
+        "object": {"nested": "value"},
+        "array": [1, 2, 3],
+        "null": null
+    }))?;
+    
+    Ok(())
+}
+```
+
+## Error Handling
 
 ```rust
 use keradb::{Database, KeraDBError};
@@ -268,7 +398,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         (vec![1.0, 0.0, 0.0, 0.0], json!({"label": "north", "category": "direction"})),
         (vec![0.0, 1.0, 0.0, 0.0], json!({"label": "east", "category": "direction"})),
         (vec![0.7, 0.7, 0.0, 0.0], json!({"label": "northeast", "category": "direction"})),
-        (vec![0.5, 0.5, 0.5, 0.5], json!({"label": "center", "category": "special"})),
     ];
     
     for (vector, metadata) in vectors {
@@ -306,7 +435,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     
     println!("Top 3 similar vectors:");
     for result in results {
-        println!("  • {} (score: {:.4})", 
+        println!("  - {} (score: {:.4})", 
                  result.document.metadata["label"],
                  result.score);
     }
@@ -316,8 +445,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 ```
 
 ### Distance Metrics
-
-KeraDB supports multiple distance metrics for vector similarity:
 
 ```rust
 use keradb::{VectorConfig, Distance};
@@ -335,47 +462,24 @@ let config = VectorConfig::new(384).with_distance(Distance::DotProduct);
 let config = VectorConfig::new(384).with_distance(Distance::Manhattan);
 ```
 
-### Vector Collection Stats
+### LEANN-Style Compression
+
+KeraDB supports LEANN-inspired compression for massive storage savings (up to 97%):
 
 ```rust
 use keradb::{Database, VectorConfig, Distance};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let db = Database::create("vectors.ndb")?;
-    
-    let config = VectorConfig::new(384).with_distance(Distance::Cosine);
-    db.create_vector_collection("embeddings", config)?;
-    
-    // Get collection statistics
-    let stats = db.vector_stats("embeddings")?;
-    
-    println!("Vector Collection Stats:");
-    println!("  Vectors: {}", stats.vector_count);
-    println!("  Dimensions: {}", stats.dimensions);
-    println!("  Distance Metric: {}", stats.distance.name());
-    
-    Ok(())
-}
-```
-
-### LEANN-Style Compression (97% Storage Savings)
-
-KeraDB supports LEANN-inspired compression for massive storage savings:
-
-```rust
-use keradb::{Database, VectorConfig, Distance, CompressionConfig};
-
-fn main() -> Result<(), Box<dyn std::error::Error>> {
     let db = Database::create("compressed.ndb")?;
     
-    // Enable delta compression (up to 97% storage savings)
+    // Enable delta compression
     let config = VectorConfig::new(384)
         .with_distance(Distance::Cosine)
         .with_delta_compression();
     
     db.create_vector_collection("embeddings", config)?;
     
-    // Or use quantized compression for even more savings
+    // Or use quantized compression
     let quantized_config = VectorConfig::new(384)
         .with_quantized_compression();
     
@@ -385,42 +489,14 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 }
 ```
 
-### Lazy Embeddings (Text-to-Vector)
-
-Store text and compute embeddings on-demand:
-
-```rust
-use keradb::{Database, VectorConfig};
-
-fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let db = Database::create("lazy.ndb")?;
-    
-    // Enable lazy embedding mode with model name
-    let config = VectorConfig::new(384)
-        .with_lazy_embedding("all-MiniLM-L6-v2");
-    
-    db.create_vector_collection("documents", config)?;
-    
-    // Insert text (embedding computed on-demand during search)
-    // db.insert_text("documents", "This is a sample document", metadata)?;
-    
-    Ok(())
-}
-```
-
 ## Complete Example
-
-Here's a complete example demonstrating all major features:
 
 ```rust
 use keradb::{Database, VectorConfig, Distance};
 use serde_json::json;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    // ============================================
     // Document Database Operations
-    // ============================================
-    
     let db = Database::create("complete_example.ndb")?;
     
     // Insert users
@@ -431,14 +507,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         "department": "Engineering"
     }))?;
     
-    let bob_id = db.insert("users", json!({
-        "name": "Bob Smith",
-        "email": "bob@example.com",
-        "age": 35,
-        "department": "Marketing"
-    }))?;
-    
-    println!("Created users: {}, {}", alice_id, bob_id);
+    println!("Created user: {}", alice_id);
     
     // Query users
     let alice = db.find_by_id("users", &alice_id)?;
@@ -453,52 +522,42 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         "promoted": true
     }))?;
     
-    // List all users
-    let all_users = db.find_all("users", None, None)?;
-    println!("Total users: {}", all_users.len());
-    
     // Collection stats
     println!("User count: {}", db.count("users"));
     
-    // ============================================
     // Vector Database Operations
-    // ============================================
-    
     let vector_config = VectorConfig::new(4)
         .with_distance(Distance::Cosine);
     
     db.create_vector_collection("product_embeddings", vector_config)?;
     
-    // Insert product embeddings with metadata
+    // Insert product embeddings
     let products = vec![
         (vec![0.9, 0.1, 0.0, 0.0], json!({"name": "Laptop", "category": "Electronics"})),
         (vec![0.8, 0.2, 0.1, 0.0], json!({"name": "Tablet", "category": "Electronics"})),
         (vec![0.1, 0.9, 0.0, 0.0], json!({"name": "Shirt", "category": "Clothing"})),
-        (vec![0.2, 0.8, 0.1, 0.0], json!({"name": "Pants", "category": "Clothing"})),
     ];
     
     for (embedding, metadata) in products {
         db.insert_vector("product_embeddings", embedding, Some(metadata))?;
     }
     
-    // Search for products similar to "electronics-like" query
+    // Search for similar products
     let query = vec![0.85, 0.15, 0.05, 0.0];
     let similar_products = db.vector_search("product_embeddings", &query, 2)?;
     
     println!("\nProducts similar to electronics query:");
     for result in similar_products {
-        println!("  • {} (score: {:.4})", 
+        println!("  - {} (score: {:.4})", 
                  result.document.metadata["name"], 
                  result.score);
     }
     
     // Sync and cleanup
     db.sync()?;
-    
-    // Clean up demo file
     std::fs::remove_file("complete_example.ndb").ok();
     
-    println!("\n✅ Complete example finished successfully!");
+    println!("\nComplete example finished successfully!");
     
     Ok(())
 }
@@ -506,18 +565,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 ## API Reference
 
-### Database
-
-#### Creation and Opening
-
-| Method | Description |
-|--------|-------------|
-| `Database::create(path)` | Create a new database file |
-| `Database::create_with_config(path, config)` | Create with custom configuration |
-| `Database::open(path)` | Open an existing database |
-| `Database::open_with_config(path, config)` | Open with custom configuration |
-
-#### Document Operations
+### Document Operations
 
 | Method | Description |
 |--------|-------------|
@@ -527,15 +575,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 | `delete(collection, id)` | Delete a document |
 | `find_all(collection, limit, skip)` | Find all documents with pagination |
 
-#### Collection Operations
-
-| Method | Description |
-|--------|-------------|
-| `count(collection)` | Count documents in a collection |
-| `list_collections()` | List all collections with counts |
-| `sync()` | Flush all changes to disk |
-
-#### Vector Operations
+### Vector Operations
 
 | Method | Description |
 |--------|-------------|
@@ -543,17 +583,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 | `insert_vector(collection, vector, metadata)` | Insert a vector with optional metadata |
 | `vector_search(collection, query, k)` | Search for k nearest neighbors |
 | `vector_stats(collection)` | Get vector collection statistics |
-
-### Types
-
-| Type | Description |
-|------|-------------|
-| `Document` | A document with ID and JSON data |
-| `VectorConfig` | Configuration for vector collections |
-| `VectorDocument` | A vector with ID, embedding, and metadata |
-| `VectorSearchResult` | Search result with document and score |
-| `Distance` | Distance metric enum (Cosine, Euclidean, DotProduct, Manhattan) |
-| `KeraDBError` | Error type for database operations |
 
 ## Building from Source
 
@@ -575,6 +604,5 @@ cargo run --example vector_search
 
 ## Next Steps
 
-- [Core Concepts](/docs/core-concepts) - Understand KeraDB fundamentals
-- [Examples](/docs/examples) - More usage examples
 - [Query Guide](/docs/query-guide) - Advanced querying techniques
+- [Examples](/docs/examples) - More usage examples

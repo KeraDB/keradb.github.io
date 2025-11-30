@@ -819,5 +819,5 @@ if __name__ == '__main__':
 ## Next Steps
 
 - [Query Guide](/docs/query-guide) - Learn advanced query techniques
-- [Core Concepts](/docs/core-concepts) - Understand the fundamentals
+- [Getting Started](/docs/getting-started/nodejs) - SDK documentation with core concepts
 - [Contributing](/docs/contributing) - Help improve KeraDB

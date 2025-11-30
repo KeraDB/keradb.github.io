@@ -842,5 +842,5 @@ result = list(users.find({
 ## Next Steps
 
 - [Examples](/docs/examples) - See practical query examples
-- [Core Concepts](/docs/core-concepts) - Understand the fundamentals
+- [Getting Started](/docs/getting-started/nodejs) - SDK documentation with core concepts
 - [Contributing](/docs/contributing) - Help improve KeraDB
