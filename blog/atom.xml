@@ -63,4 +63,97 @@
         <category label="database" term="database"/>
         <category label="vector-search" term="vector-search"/>
     </entry>
+    <entry>
+        <title type="html"><![CDATA[KeraDB vs SQLite Benchmark (v0.1.0)]]></title>
+        <id>https://keradb.github.io/blog/keradb-vs-sqlite-benchmark-v0-1-0</id>
+        <link href="https://keradb.github.io/blog/keradb-vs-sqlite-benchmark-v0-1-0"/>
+        <updated>2025-01-15T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[This post summarizes the results of our v0.1.0 benchmark comparison between KeraDB, an embedded NoSQL + vector search database, and SQLite, the widely used embedded relational engine.]]></summary>
+        <content type="html"><![CDATA[<p>This post summarizes the results of our <strong>v0.1.0 benchmark comparison</strong> between <strong>KeraDB</strong>, an embedded NoSQL + vector search database, and <strong>SQLite</strong>, the widely used embedded relational engine.<br>
+<!-- -->The goal is to highlight the strengths of each system and provide transparency on where KeraDB excels today—and where we plan to optimize next.</p>
+<p>All results are taken from our Criterion.rs benchmark suite.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="quick-comparison">Quick Comparison<a href="https://keradb.github.io/blog/keradb-vs-sqlite-benchmark-v0-1-0#quick-comparison" class="hash-link" aria-label="Direct link to Quick Comparison" title="Direct link to Quick Comparison" translate="no">​</a></h2>
+<table><thead><tr><th>Category</th><th>Winner</th><th>Notes</th></tr></thead><tbody><tr><td>Single Insert</td><td><strong>KeraDB (~240× faster)</strong></td><td>No SQL parsing; native document write path</td></tr><tr><td>Point Query</td><td><strong>KeraDB (~5× faster)</strong></td><td>Hash-based lookup; no query parser</td></tr><tr><td>Complex JSON Insert</td><td><strong>KeraDB (~124× faster)</strong></td><td>Efficient binary document storage</td></tr><tr><td>Mixed Read/Write (80/20)</td><td><strong>KeraDB (~63× faster)</strong></td><td>Optimized for interactive workloads</td></tr><tr><td>Delete (100 docs)</td><td><strong>KeraDB (2× faster)</strong></td><td>Low overhead for small batches</td></tr><tr><td>Bulk Inserts (5,000 docs)</td><td><strong>SQLite (~4× faster)</strong></td><td>Transaction batching efficiency</td></tr><tr><td>Range Queries</td><td><strong>SQLite (7–39× faster)</strong></td><td>Optimized B-tree sequential scanning</td></tr><tr><td>Storage Throughput</td><td><strong>SQLite (~10× faster)</strong></td><td>WAL + batched disk sync advantages</td></tr></tbody></table>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="key-metrics">Key Metrics<a href="https://keradb.github.io/blog/keradb-vs-sqlite-benchmark-v0-1-0#key-metrics" class="hash-link" aria-label="Direct link to Key Metrics" title="Direct link to Key Metrics" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="single-document-insert">Single Document Insert<a href="https://keradb.github.io/blog/keradb-vs-sqlite-benchmark-v0-1-0#single-document-insert" class="hash-link" aria-label="Direct link to Single Document Insert" title="Direct link to Single Document Insert" translate="no">​</a></h3>
+<table><thead><tr><th>Database</th><th>Mean Time</th></tr></thead><tbody><tr><td><strong>KeraDB</strong></td><td><strong>33.7 µs</strong></td></tr><tr><td>SQLite</td><td>8.19 ms</td></tr></tbody></table>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="complex-json-insert">Complex JSON Insert<a href="https://keradb.github.io/blog/keradb-vs-sqlite-benchmark-v0-1-0#complex-json-insert" class="hash-link" aria-label="Direct link to Complex JSON Insert" title="Direct link to Complex JSON Insert" translate="no">​</a></h3>
+<table><thead><tr><th>Database</th><th>Mean Time</th></tr></thead><tbody><tr><td><strong>KeraDB</strong></td><td><strong>35.6 µs</strong></td></tr><tr><td>SQLite</td><td>4.40 ms</td></tr></tbody></table>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="point-query-lookup-by-id">Point Query (Lookup by ID)<a href="https://keradb.github.io/blog/keradb-vs-sqlite-benchmark-v0-1-0#point-query-lookup-by-id" class="hash-link" aria-label="Direct link to Point Query (Lookup by ID)" title="Direct link to Point Query (Lookup by ID)" translate="no">​</a></h3>
+<table><thead><tr><th>Database</th><th>Mean Time</th></tr></thead><tbody><tr><td><strong>KeraDB</strong></td><td><strong>22.9 µs</strong></td></tr><tr><td>SQLite</td><td>115 µs</td></tr></tbody></table>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="mixed-readwrite-8020-workload">Mixed Read/Write (80/20 Workload)<a href="https://keradb.github.io/blog/keradb-vs-sqlite-benchmark-v0-1-0#mixed-readwrite-8020-workload" class="hash-link" aria-label="Direct link to Mixed Read/Write (80/20 Workload)" title="Direct link to Mixed Read/Write (80/20 Workload)" translate="no">​</a></h3>
+<table><thead><tr><th>Database</th><th>Mean Time per Op</th></tr></thead><tbody><tr><td><strong>KeraDB</strong></td><td><strong>14.5 µs</strong></td></tr><tr><td>SQLite</td><td>916 µs</td></tr></tbody></table>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="range-queries">Range Queries<a href="https://keradb.github.io/blog/keradb-vs-sqlite-benchmark-v0-1-0#range-queries" class="hash-link" aria-label="Direct link to Range Queries" title="Direct link to Range Queries" translate="no">​</a></h3>
+<table><thead><tr><th>Limit</th><th>KeraDB</th><th>SQLite</th></tr></thead><tbody><tr><td>10 docs</td><td>834 µs</td><td>111 µs</td></tr><tr><td>100 docs</td><td>3.53 ms</td><td>164 µs</td></tr><tr><td>1000 docs</td><td>27.6 ms</td><td>714 µs</td></tr></tbody></table>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="bulk-insert-5000-docs">Bulk Insert (5,000 docs)<a href="https://keradb.github.io/blog/keradb-vs-sqlite-benchmark-v0-1-0#bulk-insert-5000-docs" class="hash-link" aria-label="Direct link to Bulk Insert (5,000 docs)" title="Direct link to Bulk Insert (5,000 docs)" translate="no">​</a></h3>
+<table><thead><tr><th>Database</th><th>Time</th></tr></thead><tbody><tr><td>KeraDB</td><td>153 ms</td></tr><tr><td><strong>SQLite (Transaction)</strong></td><td><strong>37 ms</strong></td></tr></tbody></table>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="storage-throughput-5000-docs--sync">Storage Throughput (5,000 docs + sync)<a href="https://keradb.github.io/blog/keradb-vs-sqlite-benchmark-v0-1-0#storage-throughput-5000-docs--sync" class="hash-link" aria-label="Direct link to Storage Throughput (5,000 docs + sync)" title="Direct link to Storage Throughput (5,000 docs + sync)" translate="no">​</a></h3>
+<table><thead><tr><th>Database</th><th>Throughput</th></tr></thead><tbody><tr><td>KeraDB</td><td>25.8K docs/sec</td></tr><tr><td><strong>SQLite</strong></td><td><strong>255K docs/sec</strong></td></tr></tbody></table>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="interpretation">Interpretation<a href="https://keradb.github.io/blog/keradb-vs-sqlite-benchmark-v0-1-0#interpretation" class="hash-link" aria-label="Direct link to Interpretation" title="Direct link to Interpretation" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="where-keradb-excels">Where KeraDB Excels<a href="https://keradb.github.io/blog/keradb-vs-sqlite-benchmark-v0-1-0#where-keradb-excels" class="hash-link" aria-label="Direct link to Where KeraDB Excels" title="Direct link to Where KeraDB Excels" translate="no">​</a></h3>
+<p>KeraDB consistently dominates in <strong>low-latency, document-centric</strong> operations:</p>
+<ul>
+<li class="">Very fast single inserts and point queries</li>
+<li class="">High performance for nested/complex JSON</li>
+<li class="">Excellent under mixed read/write workloads</li>
+<li class="">Strong small-batch deletion performance</li>
+<li class="">Zero configuration and native document formats</li>
+</ul>
+<p>These characteristics make KeraDB ideal for:</p>
+<ul>
+<li class="">Local-first applications</li>
+<li class="">Edge/agent workflows</li>
+<li class="">AI pipelines and LLM tooling</li>
+<li class="">Apps working heavily with JSON documents</li>
+<li class="">Workloads needing predictable sub-100µs response times</li>
+</ul>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="where-sqlite-excels">Where SQLite Excels<a href="https://keradb.github.io/blog/keradb-vs-sqlite-benchmark-v0-1-0#where-sqlite-excels" class="hash-link" aria-label="Direct link to Where SQLite Excels" title="Direct link to Where SQLite Excels" translate="no">​</a></h3>
+<p>SQLite remains exceptional for <strong>relational batch operations</strong> and <strong>large sequential scans</strong>:</p>
+<ul>
+<li class="">Bulk inserts scale extremely well with transactions</li>
+<li class="">Range queries are significantly faster</li>
+<li class="">Write-ahead logging provides strong bulk throughput</li>
+<li class="">SQL-based analytics remain unmatched</li>
+</ul>
+<p>SQLite is still the better fit for:</p>
+<ul>
+<li class="">Analytical queries</li>
+<li class="">High-volume batch ingestion</li>
+<li class="">Heavy use of <code>LIMIT/OFFSET</code> style iteration</li>
+<li class="">Relational schemas and SQL flexibility</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="whats-next-for-keradb">What’s Next for KeraDB<a href="https://keradb.github.io/blog/keradb-vs-sqlite-benchmark-v0-1-0#whats-next-for-keradb" class="hash-link" aria-label="Direct link to What’s Next for KeraDB" title="Direct link to What’s Next for KeraDB" translate="no">​</a></h2>
+<p>Based on the benchmark profile, our upcoming optimization areas include:</p>
+<ul>
+<li class="">Improving range scan performance</li>
+<li class="">Adding cursor-based iteration</li>
+<li class="">Exploring lazy/lite document deserialization</li>
+<li class="">Optional batched write mode</li>
+<li class="">Reduced overhead for large result sets</li>
+</ul>
+<p>These improvements will be part of our upcoming releases.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="final-thoughts">Final Thoughts<a href="https://keradb.github.io/blog/keradb-vs-sqlite-benchmark-v0-1-0#final-thoughts" class="hash-link" aria-label="Direct link to Final Thoughts" title="Direct link to Final Thoughts" translate="no">​</a></h2>
+<p>KeraDB and SQLite serve different workloads well:</p>
+<ul>
+<li class="">If your application is <strong>document-first</strong>, <strong>JSON-heavy</strong>, or <strong>latency-critical</strong> → KeraDB is shaping up to be a strong choice.</li>
+<li class="">If you need <strong>SQL</strong>, <strong>batch-heavy writes</strong>, or <strong>analytical scans</strong> → use SQLite for now.</li>
+</ul>
+<p>We’ll continue publishing benchmark updates as KeraDB evolves.</p>
+<p>If you have ideas, feedback, or would like to contribute, feel free to open a discussion or issue in our GitHub repo.</p>]]></content>
+        <author>
+            <name>KeraDB Team</name>
+            <uri>https://github.com/keradb</uri>
+        </author>
+        <category label="benchmark" term="benchmark"/>
+        <category label="performance" term="performance"/>
+        <category label="sqlite" term="sqlite"/>
+        <category label="nosql" term="nosql"/>
+        <category label="vector-search" term="vector-search"/>
+    </entry>
 </feed>
