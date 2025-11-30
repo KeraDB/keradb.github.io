@@ -1,6 +1,6 @@
 ---
 slug: introducing-keradb
-title: Introducing KeraDB - A Lightweight Embedded Database with Vector Search
+title: Introducing KeraDB
 authors: [keradb]
 tags: [announcement, release, database, vector-search]
 ---
@@ -13,7 +13,7 @@ We're thrilled to announce the official launch of **KeraDB** — a lightweight, 
 
 Building modern applications often requires a database, but not every project needs the complexity of running a separate database server. Whether you're prototyping a new idea, building an Electron app, or developing an AI application that needs vector similarity search, KeraDB provides a simple, powerful solution.
 
-### 🚀 Key Features
+### Key Features
 
 - **MongoDB-Compatible SDK** — If you know MongoDB, you already know KeraDB. Our familiar query syntax means zero learning curve.
 
@@ -56,9 +56,9 @@ This is just the beginning. We're actively working on:
 
 We'd love to hear from you! Check out our [documentation](/docs) to get started, and don't hesitate to:
 
-- ⭐ Star us on [GitHub](https://github.com/keradb/keradb)
-- 🐛 Report issues or request features
-- 💬 Join the conversation
+- Star us on [GitHub](https://github.com/keradb/keradb)
+- Report issues or request features
+- Join the conversation
 
 Thank you for being part of the KeraDB journey. We can't wait to see what you build!
 
