@@ -8,7 +8,7 @@
     <subtitle>KeraDB Blog</subtitle>
     <icon>https://keradb.github.io/img/favicon.ico</icon>
     <entry>
-        <title type="html"><![CDATA[Introducing KeraDB - A Lightweight Embedded Database with Vector Search]]></title>
+        <title type="html"><![CDATA[Introducing KeraDB]]></title>
         <id>https://keradb.github.io/blog/introducing-keradb</id>
         <link href="https://keradb.github.io/blog/introducing-keradb"/>
         <updated>2025-11-30T00:00:00.000Z</updated>
@@ -16,7 +16,7 @@
         <content type="html"><![CDATA[<p>We're thrilled to announce the official launch of <strong>KeraDB</strong> — a lightweight, embedded database with MongoDB-compatible APIs and built-in vector search capabilities.</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-keradb">Why KeraDB?<a href="https://keradb.github.io/blog/introducing-keradb#why-keradb" class="hash-link" aria-label="Direct link to Why KeraDB?" title="Direct link to Why KeraDB?" translate="no">​</a></h2>
 <p>Building modern applications often requires a database, but not every project needs the complexity of running a separate database server. Whether you're prototyping a new idea, building an Electron app, or developing an AI application that needs vector similarity search, KeraDB provides a simple, powerful solution.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-key-features">🚀 Key Features<a href="https://keradb.github.io/blog/introducing-keradb#-key-features" class="hash-link" aria-label="Direct link to 🚀 Key Features" title="Direct link to 🚀 Key Features" translate="no">​</a></h3>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="key-features">Key Features<a href="https://keradb.github.io/blog/introducing-keradb#key-features" class="hash-link" aria-label="Direct link to Key Features" title="Direct link to Key Features" translate="no">​</a></h3>
 <ul>
 <li class="">
 <p><strong>MongoDB-Compatible SDK</strong> — If you know MongoDB, you already know KeraDB. Our familiar query syntax means zero learning curve.</p>
@@ -48,9 +48,9 @@
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="join-the-community">Join the Community<a href="https://keradb.github.io/blog/introducing-keradb#join-the-community" class="hash-link" aria-label="Direct link to Join the Community" title="Direct link to Join the Community" translate="no">​</a></h2>
 <p>We'd love to hear from you! Check out our <a class="" href="https://keradb.github.io/docs">documentation</a> to get started, and don't hesitate to:</p>
 <ul>
-<li class="">⭐ Star us on <a href="https://github.com/keradb/keradb" target="_blank" rel="noopener noreferrer" class="">GitHub</a></li>
-<li class="">🐛 Report issues or request features</li>
-<li class="">💬 Join the conversation</li>
+<li class="">Star us on <a href="https://github.com/keradb/keradb" target="_blank" rel="noopener noreferrer" class="">GitHub</a></li>
+<li class="">Report issues or request features</li>
+<li class="">Join the conversation</li>
 </ul>
 <p>Thank you for being part of the KeraDB journey. We can't wait to see what you build!</p>
 <p><em>— The KeraDB Team</em></p>]]></content>
