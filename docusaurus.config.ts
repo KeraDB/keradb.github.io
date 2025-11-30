@@ -43,7 +43,14 @@ const config: Config = {
           editUrl:
             'https://github.com/keradb/keradb.github.io/tree/main/',
         },
-        blog: false,
+        blog: {
+          showReadingTime: true,
+          blogTitle: 'KeraDB Blog',
+          blogDescription: 'Latest news and updates from the KeraDB team',
+          postsPerPage: 10,
+          blogSidebarTitle: 'Recent posts',
+          blogSidebarCount: 5,
+        },
         theme: {
           customCss: './src/css/custom.css',
         },
@@ -66,6 +73,11 @@ const config: Config = {
           sidebarId: 'tutorialSidebar',
           position: 'left',
           label: 'Documentation',
+        },
+        {
+          to: '/blog',
+          label: 'Blog',
+          position: 'left',
         },
         {
           href: 'https://github.com/keradb/keradb',
