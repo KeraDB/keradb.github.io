@@ -2,72 +2,16 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://keradb.github.io/blog</id>
     <title>KeraDB Blog</title>
-    <updated>2025-11-30T00:00:00.000Z</updated>
+    <updated>2025-12-01T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://keradb.github.io/blog"/>
     <subtitle>KeraDB Blog</subtitle>
     <icon>https://keradb.github.io/img/favicon.ico</icon>
     <entry>
-        <title type="html"><![CDATA[Introducing KeraDB]]></title>
-        <id>https://keradb.github.io/blog/introducing-keradb</id>
-        <link href="https://keradb.github.io/blog/introducing-keradb"/>
-        <updated>2025-11-30T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[We're thrilled to announce the official launch of KeraDB — a lightweight, embedded database with MongoDB-compatible APIs and built-in vector search capabilities.]]></summary>
-        <content type="html"><![CDATA[<p>We're thrilled to announce the official launch of <strong>KeraDB</strong> — a lightweight, embedded database with MongoDB-compatible APIs and built-in vector search capabilities.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-keradb">Why KeraDB?<a href="https://keradb.github.io/blog/introducing-keradb#why-keradb" class="hash-link" aria-label="Direct link to Why KeraDB?" title="Direct link to Why KeraDB?" translate="no">​</a></h2>
-<p>Building modern applications often requires a database, but not every project needs the complexity of running a separate database server. Whether you're prototyping a new idea, building an Electron app, or developing an AI application that needs vector similarity search, KeraDB provides a simple, powerful solution.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="key-features">Key Features<a href="https://keradb.github.io/blog/introducing-keradb#key-features" class="hash-link" aria-label="Direct link to Key Features" title="Direct link to Key Features" translate="no">​</a></h3>
-<ul>
-<li class="">
-<p><strong>MongoDB-Compatible SDK</strong> — If you know MongoDB, you already know KeraDB. Our familiar query syntax means zero learning curve.</p>
-</li>
-<li class="">
-<p><strong>Embedded &amp; Serverless</strong> — No separate database process to manage. Your database lives right alongside your application.</p>
-</li>
-<li class="">
-<p><strong>Vector Search Built-in</strong> — Perfect for AI/ML applications. Store and query embeddings with efficient similarity search.</p>
-</li>
-<li class="">
-<p><strong>Multi-Language Support</strong> — Available for Node.js, Python, and Rust with consistent APIs across all platforms.</p>
-</li>
-<li class="">
-<p><strong>Lightweight &amp; Fast</strong> — Written in Rust for maximum performance with minimal footprint.</p>
-</li>
-</ul>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="getting-started">Getting Started<a href="https://keradb.github.io/blog/introducing-keradb#getting-started" class="hash-link" aria-label="Direct link to Getting Started" title="Direct link to Getting Started" translate="no">​</a></h2>
-<p>Getting up and running takes just a few lines of code:</p>
-<div class="language-javascript codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-javascript codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token keyword" style="color:#00009f">const</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"> </span><span class="token maybe-class-name">KeraDB</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">}</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token function" style="color:#d73a49">require</span><span class="token punctuation" style="color:#393A34">(</span><span class="token string" style="color:#e3116c">'keradb'</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token keyword" style="color:#00009f">const</span><span class="token plain"> db </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token keyword" style="color:#00009f">new</span><span class="token plain"> </span><span class="token class-name">KeraDB</span><span class="token punctuation" style="color:#393A34">(</span><span class="token string" style="color:#e3116c">'./myapp.db'</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token keyword" style="color:#00009f">const</span><span class="token plain"> users </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> db</span><span class="token punctuation" style="color:#393A34">.</span><span class="token method function property-access" style="color:#d73a49">collection</span><span class="token punctuation" style="color:#393A34">(</span><span class="token string" style="color:#e3116c">'users'</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token keyword control-flow" style="color:#00009f">await</span><span class="token plain"> users</span><span class="token punctuation" style="color:#393A34">.</span><span class="token method function property-access" style="color:#d73a49">insertOne</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"> </span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token literal-property property" style="color:#36acaa">name</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'Alice'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token literal-property property" style="color:#36acaa">email</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'alice@example.com'</span><span class="token plain"> </span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">}</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token keyword" style="color:#00009f">const</span><span class="token plain"> user </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token keyword control-flow" style="color:#00009f">await</span><span class="token plain"> users</span><span class="token punctuation" style="color:#393A34">.</span><span class="token method function property-access" style="color:#d73a49">findOne</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"> </span><span class="token literal-property property" style="color:#36acaa">name</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'Alice'</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">}</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><br></span></code></pre></div></div>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="whats-next">What's Next?<a href="https://keradb.github.io/blog/introducing-keradb#whats-next" class="hash-link" aria-label="Direct link to What's Next?" title="Direct link to What's Next?" translate="no">​</a></h2>
-<p>This is just the beginning. We're actively working on:</p>
-<ul>
-<li class="">Enhanced vector search algorithms</li>
-<li class="">Additional language SDKs</li>
-<li class="">Performance optimizations</li>
-<li class="">More query operators</li>
-</ul>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="join-the-community">Join the Community<a href="https://keradb.github.io/blog/introducing-keradb#join-the-community" class="hash-link" aria-label="Direct link to Join the Community" title="Direct link to Join the Community" translate="no">​</a></h2>
-<p>We'd love to hear from you! Check out our <a class="" href="https://keradb.github.io/docs">documentation</a> to get started, and don't hesitate to:</p>
-<ul>
-<li class="">Star us on <a href="https://github.com/keradb/keradb" target="_blank" rel="noopener noreferrer" class="">GitHub</a></li>
-<li class="">Report issues or request features</li>
-<li class="">Join the conversation</li>
-</ul>
-<p>Thank you for being part of the KeraDB journey. We can't wait to see what you build!</p>
-<p><em>— The KeraDB Team</em></p>]]></content>
-        <author>
-            <name>KeraDB Team</name>
-            <uri>https://github.com/keradb</uri>
-        </author>
-        <category label="announcement" term="announcement"/>
-        <category label="release" term="release"/>
-        <category label="database" term="database"/>
-        <category label="vector-search" term="vector-search"/>
-    </entry>
-    <entry>
         <title type="html"><![CDATA[KeraDB vs SQLite Benchmark (v0.1.0)]]></title>
         <id>https://keradb.github.io/blog/keradb-vs-sqlite-benchmark-v0-1-0</id>
         <link href="https://keradb.github.io/blog/keradb-vs-sqlite-benchmark-v0-1-0"/>
-        <updated>2025-01-15T00:00:00.000Z</updated>
+        <updated>2025-12-01T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[This post summarizes the results of our v0.1.0 benchmark comparison between KeraDB, an embedded NoSQL + vector search database, and SQLite, the widely used embedded relational engine.]]></summary>
         <content type="html"><![CDATA[<p>This post summarizes the results of our <strong>v0.1.0 benchmark comparison</strong> between <strong>KeraDB</strong>, an embedded NoSQL + vector search database, and <strong>SQLite</strong>, the widely used embedded relational engine.<br>
 <!-- -->The goal is to highlight the strengths of each system and provide transparency on where KeraDB excels today—and where we plan to optimize next.</p>
@@ -154,6 +98,62 @@
         <category label="performance" term="performance"/>
         <category label="sqlite" term="sqlite"/>
         <category label="nosql" term="nosql"/>
+        <category label="vector-search" term="vector-search"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Introducing KeraDB]]></title>
+        <id>https://keradb.github.io/blog/introducing-keradb</id>
+        <link href="https://keradb.github.io/blog/introducing-keradb"/>
+        <updated>2025-11-30T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[We're thrilled to announce the official launch of KeraDB — a lightweight, embedded database with MongoDB-compatible APIs and built-in vector search capabilities.]]></summary>
+        <content type="html"><![CDATA[<p>We're thrilled to announce the official launch of <strong>KeraDB</strong> — a lightweight, embedded database with MongoDB-compatible APIs and built-in vector search capabilities.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-keradb">Why KeraDB?<a href="https://keradb.github.io/blog/introducing-keradb#why-keradb" class="hash-link" aria-label="Direct link to Why KeraDB?" title="Direct link to Why KeraDB?" translate="no">​</a></h2>
+<p>Building modern applications often requires a database, but not every project needs the complexity of running a separate database server. Whether you're prototyping a new idea, building an Electron app, or developing an AI application that needs vector similarity search, KeraDB provides a simple, powerful solution.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="key-features">Key Features<a href="https://keradb.github.io/blog/introducing-keradb#key-features" class="hash-link" aria-label="Direct link to Key Features" title="Direct link to Key Features" translate="no">​</a></h3>
+<ul>
+<li class="">
+<p><strong>MongoDB-Compatible SDK</strong> — If you know MongoDB, you already know KeraDB. Our familiar query syntax means zero learning curve.</p>
+</li>
+<li class="">
+<p><strong>Embedded &amp; Serverless</strong> — No separate database process to manage. Your database lives right alongside your application.</p>
+</li>
+<li class="">
+<p><strong>Vector Search Built-in</strong> — Perfect for AI/ML applications. Store and query embeddings with efficient similarity search.</p>
+</li>
+<li class="">
+<p><strong>Multi-Language Support</strong> — Available for Node.js, Python, and Rust with consistent APIs across all platforms.</p>
+</li>
+<li class="">
+<p><strong>Lightweight &amp; Fast</strong> — Written in Rust for maximum performance with minimal footprint.</p>
+</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="getting-started">Getting Started<a href="https://keradb.github.io/blog/introducing-keradb#getting-started" class="hash-link" aria-label="Direct link to Getting Started" title="Direct link to Getting Started" translate="no">​</a></h2>
+<p>Getting up and running takes just a few lines of code:</p>
+<div class="language-javascript codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-javascript codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token keyword" style="color:#00009f">const</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"> </span><span class="token maybe-class-name">KeraDB</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">}</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token function" style="color:#d73a49">require</span><span class="token punctuation" style="color:#393A34">(</span><span class="token string" style="color:#e3116c">'keradb'</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token keyword" style="color:#00009f">const</span><span class="token plain"> db </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token keyword" style="color:#00009f">new</span><span class="token plain"> </span><span class="token class-name">KeraDB</span><span class="token punctuation" style="color:#393A34">(</span><span class="token string" style="color:#e3116c">'./myapp.db'</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token keyword" style="color:#00009f">const</span><span class="token plain"> users </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> db</span><span class="token punctuation" style="color:#393A34">.</span><span class="token method function property-access" style="color:#d73a49">collection</span><span class="token punctuation" style="color:#393A34">(</span><span class="token string" style="color:#e3116c">'users'</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token keyword control-flow" style="color:#00009f">await</span><span class="token plain"> users</span><span class="token punctuation" style="color:#393A34">.</span><span class="token method function property-access" style="color:#d73a49">insertOne</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"> </span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token literal-property property" style="color:#36acaa">name</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'Alice'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token literal-property property" style="color:#36acaa">email</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'alice@example.com'</span><span class="token plain"> </span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">}</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token keyword" style="color:#00009f">const</span><span class="token plain"> user </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token keyword control-flow" style="color:#00009f">await</span><span class="token plain"> users</span><span class="token punctuation" style="color:#393A34">.</span><span class="token method function property-access" style="color:#d73a49">findOne</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"> </span><span class="token literal-property property" style="color:#36acaa">name</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'Alice'</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">}</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><br></span></code></pre></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="whats-next">What's Next?<a href="https://keradb.github.io/blog/introducing-keradb#whats-next" class="hash-link" aria-label="Direct link to What's Next?" title="Direct link to What's Next?" translate="no">​</a></h2>
+<p>This is just the beginning. We're actively working on:</p>
+<ul>
+<li class="">Enhanced vector search algorithms</li>
+<li class="">Additional language SDKs</li>
+<li class="">Performance optimizations</li>
+<li class="">More query operators</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="join-the-community">Join the Community<a href="https://keradb.github.io/blog/introducing-keradb#join-the-community" class="hash-link" aria-label="Direct link to Join the Community" title="Direct link to Join the Community" translate="no">​</a></h2>
+<p>We'd love to hear from you! Check out our <a class="" href="https://keradb.github.io/docs">documentation</a> to get started, and don't hesitate to:</p>
+<ul>
+<li class="">Star us on <a href="https://github.com/keradb/keradb" target="_blank" rel="noopener noreferrer" class="">GitHub</a></li>
+<li class="">Report issues or request features</li>
+<li class="">Join the conversation</li>
+</ul>
+<p>Thank you for being part of the KeraDB journey. We can't wait to see what you build!</p>
+<p><em>— The KeraDB Team</em></p>]]></content>
+        <author>
+            <name>KeraDB Team</name>
+            <uri>https://github.com/keradb</uri>
+        </author>
+        <category label="announcement" term="announcement"/>
+        <category label="release" term="release"/>
+        <category label="database" term="database"/>
         <category label="vector-search" term="vector-search"/>
     </entry>
 </feed>
