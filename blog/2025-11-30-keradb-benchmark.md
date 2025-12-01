@@ -3,7 +3,7 @@ slug: keradb-vs-sqlite-benchmark-v0-1-0
 title: KeraDB vs SQLite Benchmark (v0.1.0)
 authors: [keradb]
 tags: [benchmark, performance, sqlite, nosql, vector-search]
-date: 2025-01-15
+date: 2025-12-01
 ---
 
 # KeraDB vs SQLite Benchmark (v0.1.0)

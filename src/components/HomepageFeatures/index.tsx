@@ -30,7 +30,7 @@ const FeatureList: FeatureItem[] = [
     title: 'Multi-Language Support',
     description: (
       <>
-        Available for both Node.js and Python with consistent APIs across languages.
+        Available for multiple programming languages with consistent SDKs.
         Choose the language that works best for your project.
       </>
     ),
