@@ -26,8 +26,9 @@ KeraDB has:
 So yes — RocksDB is faster. But KeraDB is just getting started, and this benchmark gives us a map for where to improve next.  
 (Also: we did win *one* category. Let us enjoy that.)
 
-All benchmarks come from our Criterion.rs suite:  
-:contentReference[oaicite:0]{index=0}
+<!-- truncate -->
+
+All benchmarks come from our Criterion.rs suite.
 
 ---
 
