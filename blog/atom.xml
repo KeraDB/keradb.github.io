@@ -30,8 +30,7 @@
 </ul>
 <p>So yes — RocksDB is faster. But KeraDB is just getting started, and this benchmark gives us a map for where to improve next.<br>
 <!-- -->(Also: we did win <em>one</em> category. Let us enjoy that.)</p>
-<p>All benchmarks come from our Criterion.rs suite:<br>
-</p><div>oaicite:0</div><p></p>
+<p>All benchmarks come from our Criterion.rs suite.</p>
 <hr>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="quick-comparison">Quick Comparison<a href="https://keradb.github.io/blog/keradb-vs-rocksdb-benchmark-v0-1-0#quick-comparison" class="hash-link" aria-label="Direct link to Quick Comparison" title="Direct link to Quick Comparison" translate="no">​</a></h2>
 <table><thead><tr><th>Category</th><th>Winner</th><th>Performance Advantage</th></tr></thead><tbody><tr><td>Single Insert</td><td><strong>RocksDB</strong></td><td>~5× faster</td></tr><tr><td>Point Query</td><td><strong>RocksDB</strong></td><td>~6.8× faster</td></tr><tr><td>Range Queries</td><td><strong>RocksDB</strong></td><td>28–180× faster (yes… ouch)</td></tr><tr><td>Complex JSON Insert</td><td><strong>RocksDB</strong></td><td>~3.3× faster</td></tr><tr><td>Mixed Read/Write (80/20)</td><td><strong>RocksDB</strong></td><td>~4.5× faster</td></tr><tr><td>Delete (100 docs)</td><td><strong>RocksDB</strong></td><td>~2.3× faster</td></tr><tr><td>Bulk Storage (5k docs)</td><td><strong>RocksDB</strong></td><td>~22× faster</td></tr><tr><td>Bulk Insert (100 docs)</td><td><strong>KeraDB</strong></td><td>~7× faster (our one glorious win)</td></tr><tr><td>Bulk Insert (≥1k docs)</td><td><strong>RocksDB</strong></td><td>1.05–4.2× faster</td></tr><tr><td>Updates</td><td><strong>RocksDB</strong></td><td>~1.35× faster</td></tr></tbody></table>
