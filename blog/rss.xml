@@ -4,10 +4,102 @@
         <title>KeraDB Blog</title>
         <link>https://keradb.github.io/blog</link>
         <description>KeraDB Blog</description>
-        <lastBuildDate>Thu, 04 Dec 2025 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 05 Dec 2025 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[KeraDB vs DuckDB Benchmark (v0.1.0) — OLTP Meets OLAP (Quack Quack)]]></title>
+            <link>https://keradb.github.io/blog/keradb-vs-duckdb-benchmark-v0-1-0</link>
+            <guid>https://keradb.github.io/blog/keradb-vs-duckdb-benchmark-v0-1-0</guid>
+            <pubDate>Fri, 05 Dec 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[Before we begin… yes, we know.]]></description>
+            <content:encoded><![CDATA[<p>Before we begin… yes, we know.<br>
+<strong>DuckDB is OLAP. KeraDB is OLTP.</strong><br>
+<!-- -->One is built to slice through massive analytical datasets like a lightsaber.<br>
+<!-- -->The other is optimized for fast, tiny transactional operations.</p>
+<p>This benchmark is <em>not</em> a fair fight — and we knew that.<br>
+<!-- -->But developers kept asking questions, and curiosity got the best of us.<br>
+<!-- -->So we ran it anyway using Rust’s <code>criterion.rs</code> benchmarking suite.</p>
+<p>And in the spirit of DuckDB:<br>
+<strong>Quack quack.</strong> 🦆<br>
+<!-- -->Let's see what happened.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="quick-summary">Quick Summary<a href="https://keradb.github.io/blog/keradb-vs-duckdb-benchmark-v0-1-0#quick-summary" class="hash-link" aria-label="Direct link to Quick Summary" title="Direct link to Quick Summary" translate="no">​</a></h2>
+<p>Despite being an OLAP engine, <strong>DuckDB held its own in range scans</strong>, while KeraDB — as expected — dominated on OLTP-style operations such as inserts, updates, deletes, point lookups, mixed workloads, and JSON-heavy tasks.</p>
+<p>In other words:</p>
+<ul>
+<li class="">When the workload looks like <strong>“give me a bunch of rows, now!”</strong> → DuckDB shines.</li>
+<li class="">When the workload looks like <strong>“insert, update, lookup, delete… repeat fast!”</strong> → KeraDB zooms.</li>
+</ul>
+<p>This test confirms what we already suspected — and reveals where each engine’s internal design flexes its muscles.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="quick-comparison">Quick Comparison<a href="https://keradb.github.io/blog/keradb-vs-duckdb-benchmark-v0-1-0#quick-comparison" class="hash-link" aria-label="Direct link to Quick Comparison" title="Direct link to Quick Comparison" translate="no">​</a></h2>
+<table><thead><tr><th>Category</th><th>Winner</th><th>Performance Advantage</th></tr></thead><tbody><tr><td>Single Insert</td><td><strong>KeraDB</strong></td><td>~29× faster</td></tr><tr><td>Bulk Insert (100–5,000 docs)</td><td><strong>KeraDB</strong></td><td>16–19× faster</td></tr><tr><td>Point Query</td><td><strong>KeraDB</strong></td><td>~66× faster</td></tr><tr><td>Range Query (10 docs)</td><td><strong>DuckDB</strong></td><td>~1.5× faster</td></tr><tr><td>Range Query (100 docs)</td><td><strong>KeraDB</strong></td><td>slight win</td></tr><tr><td>Range Query (1000 docs)</td><td><strong>DuckDB</strong></td><td>~3.6× faster</td></tr><tr><td>Updates</td><td><strong>KeraDB</strong></td><td>~70× faster</td></tr><tr><td>Deletes</td><td><strong>KeraDB</strong></td><td>~40× faster</td></tr><tr><td>Complex JSON Insert</td><td><strong>KeraDB</strong></td><td>~27× faster</td></tr><tr><td>Mixed Workload (80/20)</td><td><strong>KeraDB</strong></td><td>~66× faster</td></tr><tr><td>Storage Sync (5k docs)</td><td><strong>KeraDB</strong></td><td>~11× faster</td></tr></tbody></table>
+<p><strong>Takeaway:</strong><br>
+<!-- -->DuckDB can sprint across columns like an Olympian, but KeraDB handles OLTP-style workloads with ease — exactly as intended.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="key-metrics">Key Metrics<a href="https://keradb.github.io/blog/keradb-vs-duckdb-benchmark-v0-1-0#key-metrics" class="hash-link" aria-label="Direct link to Key Metrics" title="Direct link to Key Metrics" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-single-insert">1. Single Insert<a href="https://keradb.github.io/blog/keradb-vs-duckdb-benchmark-v0-1-0#1-single-insert" class="hash-link" aria-label="Direct link to 1. Single Insert" title="Direct link to 1. Single Insert" translate="no">​</a></h3>
+<table><thead><tr><th>Database</th><th>Mean Time</th></tr></thead><tbody><tr><td><strong>KeraDB</strong></td><td><strong>53.97 µs</strong></td></tr><tr><td>DuckDB</td><td>1.58 ms</td></tr></tbody></table>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-bulk-insert-performance">2. Bulk Insert Performance<a href="https://keradb.github.io/blog/keradb-vs-duckdb-benchmark-v0-1-0#2-bulk-insert-performance" class="hash-link" aria-label="Direct link to 2. Bulk Insert Performance" title="Direct link to 2. Bulk Insert Performance" translate="no">​</a></h3>
+<table><thead><tr><th>Batch Size</th><th>KeraDB</th><th>DuckDB</th></tr></thead><tbody><tr><td>100 docs</td><td><strong>6.48 ms</strong></td><td>125.67 ms</td></tr><tr><td>1,000 docs</td><td><strong>55.38 ms</strong></td><td>955.61 ms</td></tr><tr><td>5,000 docs</td><td><strong>283.96 ms</strong></td><td>4.69 s</td></tr></tbody></table>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-point-query">3. Point Query<a href="https://keradb.github.io/blog/keradb-vs-duckdb-benchmark-v0-1-0#3-point-query" class="hash-link" aria-label="Direct link to 3. Point Query" title="Direct link to 3. Point Query" translate="no">​</a></h3>
+<table><thead><tr><th>Database</th><th>Mean Time</th></tr></thead><tbody><tr><td><strong>KeraDB</strong></td><td><strong>9.62 µs</strong></td></tr><tr><td>DuckDB</td><td>635.78 µs</td></tr></tbody></table>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-range-queries">4. Range Queries<a href="https://keradb.github.io/blog/keradb-vs-duckdb-benchmark-v0-1-0#4-range-queries" class="hash-link" aria-label="Direct link to 4. Range Queries" title="Direct link to 4. Range Queries" translate="no">​</a></h3>
+<table><thead><tr><th>Limit</th><th>KeraDB</th><th>DuckDB</th><th>Winner</th></tr></thead><tbody><tr><td>10 docs</td><td>1.221 ms</td><td><strong>0.799 ms</strong></td><td>DuckDB</td></tr><tr><td>100 docs</td><td><strong>2.331 ms</strong></td><td>2.462 ms</td><td>KeraDB (slight)</td></tr><tr><td>1000 docs</td><td>12.379 ms</td><td><strong>3.455 ms</strong></td><td>DuckDB</td></tr></tbody></table>
+<p>This is the OLAP sweet spot: scanning across columns in batch.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-updates">5. Updates<a href="https://keradb.github.io/blog/keradb-vs-duckdb-benchmark-v0-1-0#5-updates" class="hash-link" aria-label="Direct link to 5. Updates" title="Direct link to 5. Updates" translate="no">​</a></h3>
+<table><thead><tr><th>Database</th><th>Mean Time</th></tr></thead><tbody><tr><td><strong>KeraDB</strong></td><td><strong>23.18 µs</strong></td></tr><tr><td>DuckDB</td><td>1.61 ms</td></tr></tbody></table>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="6-deletes">6. Deletes<a href="https://keradb.github.io/blog/keradb-vs-duckdb-benchmark-v0-1-0#6-deletes" class="hash-link" aria-label="Direct link to 6. Deletes" title="Direct link to 6. Deletes" translate="no">​</a></h3>
+<table><thead><tr><th>Count</th><th>KeraDB</th><th>DuckDB</th></tr></thead><tbody><tr><td>100 docs</td><td><strong>2.14 ms</strong></td><td>85.12 ms</td></tr><tr><td>500 docs</td><td><strong>11.22 ms</strong></td><td>336.45 ms</td></tr></tbody></table>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="7-complex-json-insert">7. Complex JSON Insert<a href="https://keradb.github.io/blog/keradb-vs-duckdb-benchmark-v0-1-0#7-complex-json-insert" class="hash-link" aria-label="Direct link to 7. Complex JSON Insert" title="Direct link to 7. Complex JSON Insert" translate="no">​</a></h3>
+<table><thead><tr><th>Database</th><th>Mean Time</th></tr></thead><tbody><tr><td><strong>KeraDB</strong></td><td><strong>60.33 µs</strong></td></tr><tr><td>DuckDB</td><td>1.65 ms</td></tr></tbody></table>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="8-mixed-readwrite-80-read--20-write">8. Mixed Read/Write (80% read / 20% write)<a href="https://keradb.github.io/blog/keradb-vs-duckdb-benchmark-v0-1-0#8-mixed-readwrite-80-read--20-write" class="hash-link" aria-label="Direct link to 8. Mixed Read/Write (80% read / 20% write)" title="Direct link to 8. Mixed Read/Write (80% read / 20% write)" translate="no">​</a></h3>
+<table><thead><tr><th>Database</th><th>Mean Time</th></tr></thead><tbody><tr><td><strong>KeraDB</strong></td><td><strong>18.69 µs</strong></td></tr><tr><td>DuckDB</td><td>1.24 ms</td></tr></tbody></table>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="9-storage-sync-5000-docs">9. Storage Sync (5,000 docs)<a href="https://keradb.github.io/blog/keradb-vs-duckdb-benchmark-v0-1-0#9-storage-sync-5000-docs" class="hash-link" aria-label="Direct link to 9. Storage Sync (5,000 docs)" title="Direct link to 9. Storage Sync (5,000 docs)" translate="no">​</a></h3>
+<table><thead><tr><th>Database</th><th>Mean Time</th></tr></thead><tbody><tr><td><strong>KeraDB</strong></td><td><strong>279 ms</strong></td></tr><tr><td>DuckDB</td><td>3.05 s</td></tr></tbody></table>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="interpretation-oltp-vs-olap-aka-the-quackening">Interpretation: OLTP vs OLAP (aka “The Quackening”)<a href="https://keradb.github.io/blog/keradb-vs-duckdb-benchmark-v0-1-0#interpretation-oltp-vs-olap-aka-the-quackening" class="hash-link" aria-label="Direct link to Interpretation: OLTP vs OLAP (aka “The Quackening”)" title="Direct link to Interpretation: OLTP vs OLAP (aka “The Quackening”)" translate="no">​</a></h2>
+<p>DuckDB excels in exactly what it was designed for:</p>
+<ul>
+<li class="">analytic workloads</li>
+<li class="">scanning many rows</li>
+<li class="">vectorized execution</li>
+<li class="">heavy range queries</li>
+</ul>
+<p>When we hit it with OLTP-style micro-operations (single inserts, updates, point lookups), it politely responded with:</p>
+<p><strong>“Sir… this is a columnar engine.” - 🧐</strong></p>
+<p>Meanwhile, KeraDB — being a lightweight document OLTP store — tore through these tasks with microsecond-level latency.</p>
+<p>This test didn’t crown a universal winner. It simply reaffirmed their <strong>different purposes</strong>.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="where-keradb-excels">Where KeraDB Excels<a href="https://keradb.github.io/blog/keradb-vs-duckdb-benchmark-v0-1-0#where-keradb-excels" class="hash-link" aria-label="Direct link to Where KeraDB Excels" title="Direct link to Where KeraDB Excels" translate="no">​</a></h2>
+<ul>
+<li class="">Single inserts</li>
+<li class="">JSON-heavy writes</li>
+<li class="">Point lookups</li>
+<li class="">Updates &amp; deletes</li>
+<li class="">Mixed workloads</li>
+<li class="">Storage syncs</li>
+<li class="">Bulk inserts</li>
+</ul>
+<p>More importantly:  <strong>KeraDB’s performance profile aligns with its OLTP design goals.</strong></p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="where-duckdb-excels">Where DuckDB Excels<a href="https://keradb.github.io/blog/keradb-vs-duckdb-benchmark-v0-1-0#where-duckdb-excels" class="hash-link" aria-label="Direct link to Where DuckDB Excels" title="Direct link to Where DuckDB Excels" translate="no">​</a></h2>
+<ul>
+<li class="">Range queries</li>
+<li class="">Analytical scans</li>
+<li class="">Columnar operations</li>
+<li class="">Batched reads</li>
+</ul>
+<p>And of course:  <strong>being a duck that quacks loudly in analytics.</strong></p>]]></content:encoded>
+            <category>benchmark</category>
+            <category>performance</category>
+            <category>duckdb</category>
+            <category>olap</category>
+            <category>oltp</category>
+            <category>nosql</category>
+        </item>
         <item>
             <title><![CDATA[KeraDB vs RocksDB Benchmark (v0.1.0) — Yes, We Got Destroyed… For Now]]></title>
             <link>https://keradb.github.io/blog/keradb-vs-rocksdb-benchmark-v0-1-0</link>
