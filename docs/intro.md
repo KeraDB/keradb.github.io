@@ -11,6 +11,7 @@ KeraDB is a lightweight, embedded NoSQL document database written in Rust. It pr
 
 - **High Performance**: Written in Rust for maximum speed and safety
 - **Embedded Database**: No separate server required - runs in your application
+- **Vector Database**: Built-in similarity search for AI/ML embeddings and RAG applications
 - **Multi-Language SDKs**: Available for 13+ programming languages
 - **Simple API**: Clean, intuitive CRUD operations
 - **Lightweight**: Minimal dependencies and small footprint
