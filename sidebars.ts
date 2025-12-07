@@ -25,6 +25,7 @@ const sidebars: SidebarsConfig = {
         'getting-started/nodejs',
         'getting-started/python',
         'getting-started/rust',
+        'getting-started/cpp',
       ],
       collapsed: false,
     },
