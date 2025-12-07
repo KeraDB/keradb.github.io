@@ -20,20 +20,12 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: 'Getting Started',
+      label: 'Getting Started with SDK',
       items: [
         'getting-started/nodejs',
         'getting-started/python',
         'getting-started/rust',
         'getting-started/cpp',
-      ],
-      collapsed: false,
-    },
-    {
-      type: 'category',
-      label: 'API Reference',
-      items: [
-        'api-reference/core-concepts',
       ],
       collapsed: false,
     },

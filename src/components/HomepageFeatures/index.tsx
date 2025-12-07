@@ -12,7 +12,7 @@ const FeatureList: FeatureItem[] = [
     title: 'Easy to Use',
     description: (
       <>
-        KeraDB provides a simple, MongoDB-compatible API that's familiar to developers.
+        KeraDB provides a simple, MongoDB-compatible SDK that's familiar to developers.
         No complex setup or configuration required.
       </>
     ),
@@ -30,7 +30,7 @@ const FeatureList: FeatureItem[] = [
     title: 'Multi-Language Support',
     description: (
       <>
-        Available for both Node.js and Python with consistent APIs across languages.
+        Available for multiple programming languages with consistent SDKs.
         Choose the language that works best for your project.
       </>
     ),

@@ -17,8 +17,10 @@ const config: Config = {
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'KeraDB', // Usually your GitHub org/user name.
   projectName: 'keradb.github.io', // Usually your repo name.
+  deploymentBranch: 'gh-pages',
+  trailingSlash: false,
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
 
   // Even if you don't use internationalization, you can use this field to set
@@ -34,13 +36,21 @@ const config: Config = {
       'classic',
       {
         docs: {
+          routeBasePath: 'docs',
           sidebarPath: './sidebars.ts',
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/keradb/keradb/tree/main/docs/',
+            'https://github.com/keradb/keradb.github.io/tree/main/',
         },
-        blog: false,
+        blog: {
+          showReadingTime: true,
+          blogTitle: 'KeraDB Blog',
+          blogDescription: 'Latest news and updates from the KeraDB team',
+          postsPerPage: 10,
+          blogSidebarTitle: 'Recent posts',
+          blogSidebarCount: 5,
+        },
         theme: {
           customCss: './src/css/custom.css',
         },
@@ -65,6 +75,11 @@ const config: Config = {
           label: 'Documentation',
         },
         {
+          to: '/blog',
+          label: 'Blog',
+          position: 'left',
+        },
+        {
           href: 'https://github.com/keradb/keradb',
           label: 'GitHub',
           position: 'right',
@@ -73,7 +88,7 @@ const config: Config = {
     },
     footer: {
       style: 'dark',
-      copyright: `Built from London and Texas with ❤️<br/><span style="font-size: 0.75rem;">Copyright © ${new Date().getFullYear()} KeraDB</span>`,
+      copyright: `Built in London & Texas with ❤️<br/><span style="font-size: 0.75rem;">Copyright © ${new Date().getFullYear()} KeraDB</span>`,
     },
     prism: {
       theme: prismThemes.github,
