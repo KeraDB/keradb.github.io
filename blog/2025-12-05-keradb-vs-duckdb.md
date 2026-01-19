@@ -3,7 +3,7 @@ slug: keradb-vs-duckdb-benchmark-v0-1-0
 title: KeraDB vs DuckDB Benchmark (v0.1.0) — OLTP Meets OLAP (Quack Quack)
 authors: [keradb]
 tags: [benchmark, performance, duckdb, olap, oltp, nosql]
-date: 2025-12-05
+date: 2026-01-19
 ---
 
 # KeraDB vs DuckDB Benchmark (v0.1.0)
