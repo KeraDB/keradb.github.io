@@ -18,6 +18,8 @@ pip install keradb
 
 This release makes KeraDB accessible to Python developers building local-first apps, agents, data tools, and embedded systems that need fast document storage and vector search without running an external database.
 
+<!-- truncate -->
+
 With the PyPI release, KeraDB can now be used directly inside Python projects for:
 
 - Embedded document storage
