@@ -2,11 +2,51 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://keradb.github.io/blog</id>
     <title>KeraDB Blog</title>
-    <updated>2025-12-05T00:00:00.000Z</updated>
+    <updated>2025-12-06T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://keradb.github.io/blog"/>
     <subtitle>KeraDB Blog</subtitle>
     <icon>https://keradb.github.io/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[KeraDB Is Now Available on PyPI]]></title>
+        <id>https://keradb.github.io/blog/keradb-python-pypi-release</id>
+        <link href="https://keradb.github.io/blog/keradb-python-pypi-release"/>
+        <updated>2025-12-06T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[We're excited to share that KeraDB is now available on PyPI, making it easy to use KeraDB directly in Python applications.]]></summary>
+        <content type="html"><![CDATA[<p>We're excited to share that <strong>KeraDB is now available on PyPI</strong>, making it easy to use KeraDB directly in Python applications.</p>
+<p>You can now install KeraDB with a single command:</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">pip </span><span class="token function" style="color:#d73a49">install</span><span class="token plain"> keradb</span><br></span></code></pre></div></div>
+<p>This release makes KeraDB accessible to Python developers building local-first apps, agents, data tools, and embedded systems that need fast document storage and vector search without running an external database.</p>
+<p>With the PyPI release, KeraDB can now be used directly inside Python projects for:</p>
+<ul>
+<li class="">Embedded document storage</li>
+<li class="">Fast single-record CRUD operations</li>
+<li class="">Local-first and offline workflows</li>
+<li class="">AI/agent pipelines that need lightweight persistence</li>
+<li class="">Prototyping without database setup or servers</li>
+</ul>
+<p>KeraDB runs as an embedded database, so there's no service to manage and no configuration required to get started.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="quick-example">Quick Example<a href="https://keradb.github.io/blog/keradb-python-pypi-release#quick-example" class="hash-link" aria-label="Direct link to Quick Example" title="Direct link to Quick Example" translate="no">​</a></h2>
+<div class="language-python codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-python codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token keyword" style="color:#00009f">from</span><span class="token plain"> keradb </span><span class="token keyword" style="color:#00009f">import</span><span class="token plain"> KeraDB</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">db </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> KeraDB</span><span class="token punctuation" style="color:#393A34">(</span><span class="token string" style="color:#e3116c">"example.kdb"</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">db</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">insert</span><span class="token punctuation" style="color:#393A34">(</span><span class="token string" style="color:#e3116c">"users"</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"id"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">"user_1"</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"name"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">"Alice"</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"role"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">"developer"</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">}</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">user </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> db</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">get</span><span class="token punctuation" style="color:#393A34">(</span><span class="token string" style="color:#e3116c">"users"</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">"user_1"</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token keyword" style="color:#00009f">print</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">user</span><span class="token punctuation" style="color:#393A34">)</span><br></span></code></pre></div></div>
+<p>The API is intentionally simple and document-first, designed to feel natural in Python while retaining KeraDB's low-latency core.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="get-started">Get Started<a href="https://keradb.github.io/blog/keradb-python-pypi-release#get-started" class="hash-link" aria-label="Direct link to Get Started" title="Direct link to Get Started" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>PyPI</strong>: <a href="https://pypi.org/project/keradb/" target="_blank" rel="noopener noreferrer" class="">https://pypi.org/project/keradb/</a></li>
+<li class=""><strong>Documentation</strong>: <a href="https://keradb.github.io/docs" target="_blank" rel="noopener noreferrer" class="">https://keradb.github.io/docs</a></li>
+<li class=""><strong>GitHub</strong>: <a href="https://github.com/KeraDB/keradb" target="_blank" rel="noopener noreferrer" class="">https://github.com/KeraDB/keradb</a></li>
+</ul>
+<p>If you're building something with KeraDB in Python, we'd love to hear about it.</p>]]></content>
+        <author>
+            <name>KeraDB Team</name>
+            <uri>https://github.com/keradb</uri>
+        </author>
+        <category label="python" term="python"/>
+        <category label="pypi" term="pypi"/>
+        <category label="release" term="release"/>
+        <category label="nosql" term="nosql"/>
+        <category label="vector-search" term="vector-search"/>
+        <category label="embedded-db" term="embedded-db"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[KeraDB vs DuckDB Benchmark (v0.1.0) — OLTP Meets OLAP (Quack Quack)]]></title>
         <id>https://keradb.github.io/blog/keradb-vs-duckdb-benchmark-v0-1-0</id>
